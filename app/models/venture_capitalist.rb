@@ -45,4 +45,14 @@ class VentureCapitalist
           funding_rounds
         end
       end
+
+  def invested
+    if portfolio.length > 1
+      a = portfolio[0].investment
+      b = portfolio[1].investment
+      sum = a+b
+    else
+      portfolio
     end
+  end
+end
