@@ -44,14 +44,13 @@ class Startup
   end
 
   def total_funds
-    FundingRound.all.map do |vc|
+    FundingRound.all.select do |vc|
        vc.startup == self
 
     end.map do |funds|
-      funds.total_worth
-      binding.pry
-    end
-    end
+      funds.venture_capitalist.total_worth
+    end.sum
+  end
 
 
   def investors
@@ -61,6 +60,12 @@ class Startup
         contract.venture_capitalist
         end.uniq
       end
-
+  def big_investors
+        FundingRound.all.select do |big_vc|
+          big_vc.startup == self && VentureCapitalist.tres_commas_club
+        end.map do |big_money|
+          big_money.venture_capitalist
+        end.uniq
+      end
 
 end
